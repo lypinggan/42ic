@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}上传文件-{% endblock %}
+{% block stylesheets  %}
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/group.css') }}" type="text/css" media="screen, projection">
+<link href="/static/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block extra_javascripts %}
+
+{% endblock %}
+{% block main %} 
+<!--问题列表开始-->
+<div class="group-l-body">
+<h1>我的的文件列表</h1>
+
+<div class="indent">
+    
+    <table class="gil">
+    <tbody>
+    <tr>
+    <td>文件类型</td>
+    <td>ID号</td>
+    <td>原文件名</td>
+    <td class="date_last tr">上传时间</td>
+    </tr>
+    {% for f in file_list.items %}
+    <tr>
+    <td>{%if f.type_no == 1%}
+<img src="{{'filetype/gif.gif'|imagefile}}">
+{%elif f.type_no == 2%}
+<img src="{{'filetype/rar.gif'|imagefile}}">
+{%elif f.type_no == 3%}
+<img src="{{'filetype/pdf.gif'|imagefile}}">
+{%else%}
+<img src="{{'filetype/unknown.gif'|imagefile}}">
+{%endif%}
+</td>
+    <td>{{f.id}}</td>
+    <td>{{f.file_old_name}}</td>
+    <td class="date_last tr">{{f.date_created}}</td>
+    </tr>    
+    {% endfor%}
+    </tbody></table>
+{{ paginate(file_list, page_url) }}
+</div>
+
+
+</div>
+<div class="group-r-body">
+<h2>现在上传文件&nbsp;·&nbsp;·&nbsp;·&nbsp;·</h2>
+
+<div class="infobox">
+<div class="bd">
+<form name="form" method="post" action="{{ url_for("upload.upload_file") }}" enctype="multipart/form-data">
+    <input type="file" name="upfile" style="width:200px">
+    <input name="cancel" id="cancel" type="submit" value="上传文件" class="button"><br/>
+    <span class="pl">你可以上传PDF、JPG、JPEG、GIF、PNG或BMP文件。</span>
+
+</form>
+
+</div>
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}

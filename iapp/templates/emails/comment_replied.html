@@ -1,0 +1,25 @@
+{% trans author=author.username, 
+         title=post.title, 
+         parent_comment=parent.comment,
+         comment_author=comment.author.username, 
+         comment=comment.comment, 
+         url=comment.permalink %}
+         
+Hi {{ author }},
+
+{{ comment_author }} 回复了您的评论"{{ title }}":
+
+您的评论:
+
+{{ parent_comment }}
+
+回复:
+
+{{ comment }}
+
+查看详情请点击:
+
+{{ url }}
+
+{% endtrans %}
+

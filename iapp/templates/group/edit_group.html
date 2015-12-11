@@ -1,0 +1,62 @@
+{% extends "group/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% block title %}小组发言{% endblock %}
+{% block main %}
+<div class="group-l-body">
+<h1 class="pl20">修改小组资料</h1>
+<p></p>
+<form method="POST" action="" class="prebody" enctype="multipart/form-data">
+{{ form.hidden_tag() }}
+{{ render_errors(form.name) }}
+{{ render_errors(form.description) }}
+<table align="left" style="width:600px;">
+    <tbody>
+    <tr>
+        <td class="pl2" align="center" width="100">小组名称: </td>
+        <td style="width:500px;">{{ form.name(class="new-group-name") }}</td>
+    </tr>
+    <tr>
+        <td class="pl2" align="center" width="100">小组域名: </td>
+        <td style="width:500px;">http://www.42ic.com/group/{{group.url_name}}</td>
+    </tr>
+    <tr>
+        <td class="pl2" align="center" width="100"></td>
+        <td style="width:500px;" class="c9">域名不能修改.</td>
+    </tr>
+    
+    <tr>
+        <td>小组图标</td><td>
+        <span><img src="{%if group.group_icon_url == None %}http://www.42ic.com/static/groupicon/no.png{%else%}http://www.42ic.com/static/groupicon/{{group.group_icon_url}}{%endif%}" class="m_sub_img">
+        </span>
+        <input type="file" name="group_icon" style="width:300px"></td>
+    </tr>
+
+    <tr>
+        <td><p></p></td><td class="c9">更改头像请重新选择图片文件</td>
+    </tr>
+
+
+    <tr>
+        <td class="pl2" align="center" width="100">小组介绍: </td>
+        <td>{{ form.description(class="new-group-description") }}
+        </td></tr>
+    <tr>
+        <td>
+        </td><td>
+            <div class="btnw">{{ form.submit(class="button")}}</div>
+        </td>
+    </tr>
+</tbody></table>
+
+</form>
+
+
+
+
+</div>
+<div class="group-r-body">
+
+
+
+</div>
+{% endblock %}

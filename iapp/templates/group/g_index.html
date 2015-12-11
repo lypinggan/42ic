@@ -1,0 +1,99 @@
+{% extends "group/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}{{groupinfo.name}}{% endblock %}
+{% block main %}
+<div class="group-l-body">
+<h1 class="pl20">{{groupinfo.name}}</h1>
+<div class="infobox">
+<div class="bd">
+<img align="left" valign="top" class="pil groupicon" src="{%if groupinfo.group_icon_url == None %}http://www.42ic.com/static/groupicon/no.png{%else%}http://www.42ic.com/static/groupicon/{{groupinfo.group_icon_url}}{%endif%}" alt="{{groupinfo.name}}">
+<p>创建于{{groupinfo.date_created }} &nbsp; &nbsp; 组长：<a href="{{ url_for('people.index',username=groupinfo.leader.username) }}">{{groupinfo.leader.name}}</a>
+<br>
+{{groupinfo.description|tohtml|safe}}
+<br></br>
+{%if groupinfo.leader_id == g.user.id %}
+    <span class="fleft mr5 color-gray">我是这个小组的组长 
+    <a style="margin-left:6px;" href="{{ url_for('group.edit_group',slug=groupinfo.url_name)}}" class="j a_confirm_link" title="编辑小组资料">&gt;编辑小组资料</a>
+    
+{%else%}
+    {%if is_join %}
+    <span class="fleft mr5 color-gray">我是这个小组的成员 
+    <a style="margin-left:6px;" href="{{ url_for('group.group_quit',slug=groupinfo.url_name) }}" class="j a_confirm_link" title="退出小组">&gt;退出小组</a>
+    </span>
+    {%else%}
+    <span class="fleft mr5 color-gray">我还不是这个小组的成员 
+    <a style="margin-left:6px;" href="{{ url_for('group.group_join',slug=groupinfo.url_name) }}" class="j a_confirm_link" title="加入小组">&gt;加入小组</a>
+    </span>
+    {%endif%}
+{%endif%}
+</div>
+</div>
+
+
+<h2 style="margin-top:10px">
+{%if is_join%}
+<a href="new_topic" class="fr">
+<span>发言</span></a>
+{%else%}
+<a href="new_topic" class="fr">
+<span>加入小组后便可发言</span>
+</a>
+{%endif%}
+最近小组话题  · · · · · ·
+</h2>
+
+
+<div class="indent">
+    
+    <table class="olt">
+    <tbody><tr><td class="topic">话题</td>
+    <td class="author">作者</td>
+    <td nowrap="nowrap" class="num_comment">回应</td>
+    <td align="right"class="date_last">最后回应</td></tr>
+    {% for t in topic_list.items %}
+        <tr><td><span class="pl">
+        {%if t.set_top%}
+        <img alt="[置顶]" src="http://img3.douban.com/pics/stick.gif"></span>&nbsp;
+        {%endif%}
+        <a href="{{ url_for('group.topic_view',topic_id=t.id) }}" title="{{t.title}}">{{t.title}}</a></td>
+        <td nowrap="nowrap"><a href="{{ url_for('people.index',username=t.author.username) }}">{{t.author.name}}</a></td>
+        <td nowrap="nowrap">{{t.num_comment}}</td><td nowrap="nowrap" class="tr">{{t.date_last_response|timesince}}</td></tr>
+    
+    {% endfor %}            
+        </tbody></table>
+    </div>
+
+{{ paginate(topic_list, page_url) }}
+
+
+
+
+
+
+</div>
+<div class="group-r-body">
+<p>&nbsp; </p>
+<p class="pl2">><a href="/group/">回到我的小组</a></p>
+
+<h2 class="mt28">最近加入 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;
+</h2>
+<div class="obss">
+{% for rju in recently_join_user %}
+<dl class="ob">
+<dt><a href="{{ url_for('people.index',username=rju.user.username) }}">
+<img src="{{rju.user.avatar|avatar_url}}" class="m_sub_img" alt="{{rju.user.name}}"></a>
+</dt>
+        <dd><a href="{{ url_for('people.index',username=rju.user.username) }}">{{rju.user.name}}</a> 
+        <span>({{rju.user.prestige}})</span>
+        </dd>
+</dl>
+
+{% endfor %}
+<div class="clear"></div>
+<p class="pl2">><a href="/group/{{groupinfo.url_name}}/trash">小组回收站</a></p>
+
+<p class="pl">本页永久链接: <a href="http://www.42ic.com/group/{{groupinfo.url_name}}/">http://www.42ic.com/group/{{groupinfo.url_name}}/</a></p>
+
+</div>
+
+{% endblock %}

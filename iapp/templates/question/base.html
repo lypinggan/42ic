@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}-42ic问答</title>
+        <link rel="stylesheet" href="{{ url_for('.static', filename='css/g.css') }}" type="text/css" media="screen, projection">
+        {% block stylesheets %}{% endblock %}
+        <!--[if lt IE 7]> 
+        <script src="{{ url_for('.static', filename='js/IE7.js') }}" type="text/javascript"></script> 
+        <![endif]-->
+        {% block extra_stylesheets %}{% endblock %}
+        {% block favicon %}
+        <link rel="shortcut icon" href="{{ url_for('.static', filename='favicon.ico') }}">
+        {% endblock %}
+        {% block javascripts %}
+        <script src="{{ url_for('.static', filename='js/c.js') }}"></script>
+        <script src="{{ url_for('.static', filename='js/g.js') }}"></script>
+        {% endblock %}
+        {% block extra_javascripts %}{% endblock %}
+        {% block extrahead %}{% endblock %}      
+    </head>
+    <body>
+<!--head-->
+<div id="top-stuff">
+        <div id="top-bar-outer">
+          <div id="top-bar-bg"></div>
+          <div id="top-bar">
+            <div class="top-bar-inside" style="left: 0px; ">
+              <div class="static-links">
+  <div id="logo">
+    <a href="/">42ic.com</a>
+  </div>
+<div id="global-nav">
+  <ul class="global-actions">                     
+   <li class="on">
+   <a href="{{ url_for('question.index')}}" >问题</a>
+   </li>
+   <li>
+   <a href="{{ url_for('group.index')}}" >小组</a>
+   </li>
+   <li>
+   <a href="{{ url_for('note.index')}}" >笔记</a>
+   </li>
+   
+  </ul>
+</div>
+<div class="search-form">
+<div class="search-input">
+<span>
+<form name="group_search" action="/question/search" method="get">
+<input value="" placeholder="搜索..." name="q" class="input" id="search-query" type="text">
+<button type="submit" onclick="" title="搜索"></button>
+</form>
+</span>
+</div>
+
+<div class="search-result">
+输入文本开始搜索...
+</div>
+</div>
+
+
+</div>
+<div class="fr">
+<ul class="user-info-top">
+{% if g.user %}
+{%if g.user.unread_message > 0 %}
+<li><a href="{{ url_for('people.notice',username=g.user.username)}}" class="unread_message">{{g.user.unread_message}}</a></li>
+{%endif%}
+<li>
+<a class="user-icon" href="{{ url_for('people.index',username=g.user.username) }}">
+<img src="{{url_for('.static', filename= 'avatar/'+g.user.avatar)}}"></a>
+</li>
+<li><a href="{{ url_for('account.profile') }}" >资料</a></li>
+<li><a href="{{ url_for('account.logout') }}" >退出</a></li>
+{% else %}
+<li><a href="{{ url_for('account.login') }}" >登陆</a></li>
+<li><a href="{{ url_for('account.signup') }}" >注册42IC</a></li>
+{% endif %}
+</ul>
+</div>
+            </div>
+          </div>
+        <div class="clear"></div>
+        </div>
+<div class="clear"></div>
+      </div>
+
+<div id="head">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+<div style="display: none;" id="loading"> 
+    <div class="logo"></div> 
+    <div class="text">加载中…</div> 
+  </div>
+
+
+
+</div>
+</div>
+<div class="clear"></div>
+<!--head over-->
+{% set messages = get_flashed_messages(True) %}
+{% if messages %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#message').fadeOut(5000);
+    });
+</script>
+<div id="message">{% for status, message in messages %}<p class="{{ status }}">{{ message }}</p>{% endfor %}</div>
+{% endif %}
+
+<div class="clear"></div>
+<!--main-->
+<div id="main">
+  <div class="container">
+        {% block main %}
+        {% endblock %}
+  </div>
+</div>
+<div class="clear"></div>
+<!--main over-->
+<!--foot-->
+<div id="foot">
+  <div class="container">
+
+<div class="y gs">
+<a href="/help" target="_blank" class="c0">新手入门</a>
+<span class="split">•</span><a href="/contact" target="_blank" class="c0">联系我们</a>
+<span class="split">•</span><a href="/rules" target="_blank" class="c0">用户协议</a>
+<span class="split">•</span><span>© 2011 42ic.com</span>
+</div>
+
+
+
+  </div>
+</div>
+<!--foot over-->
+
+{% if config.GOOGLE_TRACKING_CODE %}
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '{{ config.GOOGLE_TRACKING_CODE }}']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+{% endif %}
+<a style="display:none;" href="#header" id="go-to-top"></a>
+<!--if lte IE 6]>
+<script src="http://letskillie6.googlecode.com/svn/trunk/letskillie6.zh_CN.pack.js"></script>
+<!--endif]-->
+
+</body>
+</html>

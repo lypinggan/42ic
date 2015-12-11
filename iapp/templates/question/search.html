@@ -1,0 +1,24 @@
+{% extends "question/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% from "macros/_post.html" import render_question %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}搜索关于{{keywords}}的问题{% endblock %}
+{% block stylesheets  %} 
+{% endblock %}
+{% block extra_javascripts %}
+{% endblock %}
+{% block main %} 
+<!--问题列表开始-->
+
+<div class="menu-hd clearfix">
+搜索关于“<span class="red">{{keywords}}</span>”的问题
+<a href="/question/ask" class="butt button fr" >我要提问</a>
+</div>
+{%if question.items%}
+{{ render_question( question.items ) }}
+
+{{ paginate(question, page_url) }}
+{%else%}
+<h2>暂无搜素结果</h2>
+{%endif%}
+{% endblock %}

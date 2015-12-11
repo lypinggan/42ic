@@ -1,0 +1,153 @@
+<table class="Bs" id="event-{{e.id}}">
+<tbody>
+{%if e.event_type == 101 %}
+<!-- 新注册用户 -->
+<tr>
+<td class="qh MK" align="center"><a href="/people/{{e.user.username}}" title="{{e.user.name}}">
+<img src="{{e.user.avatar|avatar_url}}"></a></td>
+<td class="qh FK">欢迎&nbsp;
+<a href="/people/{{e.user.username}}" title="{{e.user.name}}" class="Yk">{{e.user.name}}</a>&nbsp;{{e.title}}
+<br>
+<p class="NK">{{e.description | minitohtml | safe}}</p>
+</td>
+<td class="">
+<a href="#" event-id="{{e.id}}" class="x fr a_del_event">&nbsp;&nbsp;&nbsp;</a>
+</td>
+</tr>
+{%elif e.event_type == 103 %}
+<!-- 关注了谁 -->
+<tr>
+<td class="qh MK" align="center"><a href="/people/{{e.user.username}}" title="{{e.user.name}}">
+<img src="{{e.user.avatar|avatar_url}}"></a></td>
+<td class="qh FK">{{e.user.name}}&nbsp;关注了&nbsp;{{e.title|safe}}
+<br>
+<p class="NK"></p>
+</td>
+<td class="">
+<a href="#" event-id="{{e.id}}" class="x fr a_del_event">&nbsp;&nbsp;&nbsp;</a>
+</td>
+</tr>
+{%elif e.event_type == 301 %}
+<!-- 提了问 -->
+<tr>
+<td class="qh MK" align="center"><a href="/people/{{e.user.username}}" title="{{e.user.name}}">
+<img src="{{e.user.avatar|avatar_url}}"></a></td>
+<td class="qh FK"><a href="/people/{{e.user.username}}" title="{{e.user.name}}" class="Yk">{{e.user.name}}</a>
+&nbsp;问&nbsp;<a href="/question/{{e.event_msg_id}}" title="{{e.title}}" class="Yk">{{e.title}}</a>
+<br>
+<p class="NK">{{e.description | minitohtml | safe}}....</p>
+</td>
+<td class="">
+<a href="#" event-id="{{e.id}}" class="x fr a_del_event">&nbsp;&nbsp;&nbsp;</a>
+</td>
+</tr>
+{%elif e.event_type == 302 %}
+<!-- 回答了谁的问题 -->
+<tr>
+<td class="qh MK" align="center"><a href="/people/{{e.user.username}}" title="{{e.user.name}}">
+<img src="{{e.user.avatar|avatar_url}}"></a></td>
+<td class="qh FK"><a href="/people/{{e.user.username}}" title="{{e.user.name}}" class="Yk">{{e.user.name}}</a>
+&nbsp;回答了&nbsp;<a href="/question/{{e.event_msg_id}}" title="{{e.title}}" class="Yk">{{e.title}}</a>&nbsp;问题
+<br>
+<p class="NK">{{e.description | minitohtml | safe}}....</p>
+</td>
+<td class="">
+<a href="#" event-id="{{e.id}}" class="x fr a_del_event">&nbsp;&nbsp;&nbsp;</a>
+</td>
+</tr>
+{%elif e.event_type == 303 %}
+<!-- 关注了某个问题 -->
+<tr>
+<td class="qh MK" align="center"><a href="/people/{{e.user.username}}" title="{{e.user.name}}">
+<img src="{{e.user.avatar|avatar_url}}"></a></td>
+<td class="qh FK"><a href="/people/{{e.user.username}}" title="{{e.user.name}}" class="Yk">{{e.user.name}}</a>
+&nbsp;关注了&nbsp;<a href="/question/{{e.event_msg_id}}" title="{{e.title}}" class="Yk">{{e.title}}</a>&nbsp;问题
+<br>
+<p class="NK">{{e.description | minitohtml | safe}}....</p>
+</td>
+<td class="">
+<a href="#" event-id="{{e.id}}" class="x fr a_del_event">&nbsp;&nbsp;&nbsp;</a>
+</td>
+</tr>
+
+{%elif e.event_type == 501 %}
+<!-- 发布了新话题 -->
+<tr>
+<td class="qh MK" align="center"><a href="/people/{{e.user.username}}" title="{{e.user.name}}">
+<img src="{{e.user.avatar|avatar_url}}"></a></td>
+<td class="qh FK"><a href="/people/{{e.user.username}}" title="{{e.user.name}}" class="Yk">{{e.user.name}}</a>
+&nbsp;发布了&nbsp;<a href="/group/topic/{{e.event_msg_id}}" title="{{e.title}}" class="Yk">{{e.title}}</a>&nbsp;话题
+<br>
+<p class="NK">{{e.description | minitohtml | safe}}....</p>
+</td>
+<td class="">
+<a href="#" event-id="{{e.id}}" class="x fr a_del_event">&nbsp;&nbsp;&nbsp;</a>
+</td>
+</tr>
+{%elif e.event_type == 502 %}
+<!-- 回复了话题 -->
+<tr>
+<td class="qh MK" align="center"><a href="/people/{{e.user.username}}" title="{{e.user.name}}">
+<img src="{{e.user.avatar|avatar_url}}"></a></td>
+<td class="qh FK"><a href="/people/{{e.user.username}}" title="{{e.user.name}}" class="Yk">{{e.user.name}}</a>
+&nbsp;回复了&nbsp;<a href="/group/topic/{{e.event_msg_id}}" title="{{e.title}}" class="Yk">{{e.title}}</a>&nbsp;话题
+<br>
+<p class="NK">{{e.description | minitohtml | safe}}....</p>
+</td>
+<td class="">
+<a href="#" event-id="{{e.id}}" class="x fr a_del_event">&nbsp;&nbsp;&nbsp;</a>
+</td>
+</tr>
+{%elif e.event_type == 503 %}
+<!-- 加入了某个小组-->
+<tr>
+<td class="qh MK" align="center"><a href="/people/{{e.user.username}}" title="{{e.user.name}}">
+<img src="{{e.user.avatar|avatar_url}}"></a></td>
+<td class="qh FK"><a href="/people/{{e.user.username}}" title="{{e.user.name}}" class="Yk">{{e.user.name}}</a>
+&nbsp;加入了&nbsp;{{e.title|safe}}&nbsp;小组
+<br>
+<p class="NK">{{e.description | minitohtml | safe}}....</p>
+</td>
+<td class="">
+<a href="#" event-id="{{e.id}}" class="x fr a_del_event">&nbsp;&nbsp;&nbsp;</a>
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+{%endif%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+</table>

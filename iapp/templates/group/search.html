@@ -1,0 +1,125 @@
+{% extends "group/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}搜索小组{% endblock %}
+{% block main %}
+{% if viewname == 'group_submit' %}
+<div class="group-l-body">
+<h1 class="pl20"></h1>
+<div class="infobox">
+<div class="bd">
+<h1>搜索名称含有“<span class="red">{{keywords}}</span>”的小组</h1>
+</div>
+</div>
+<div class="indent">
+{%if group_list%}
+{% for group in group_list %}
+<div class="result">
+    <div class="pic">
+    <a class="nbg" href="http://www.42ic.com/group/{{group.url_name}}/" title="{{group.name}}">
+    <img src="{%if group.group_icon_url == None %}http://www.42ic.com/static/groupicon/no.png{%else%}http://www.42ic.com/static/groupicon/{{group.group_icon_url}}{%endif%}" alt="Maggie Q"></a>
+    </div>
+    <div class="content">
+    <h3><span>[小组] </span>&nbsp;<a href="http://www.42ic.com/group/{{group.url_name}}/">{{group.name}}</a></h3>
+    <div class="info">{{group.date_created}} &nbsp; <a href="http://www.42ic.com/group/{{group.url_name}}/">{{group.num_members}} 人</a></div>
+    <p>{{group.description}}</p>
+    </div>
+</div>
+{%endfor%}
+{%else%}
+<h2>暂无搜素结果</h2>
+{%endif%}
+</div>
+</div>
+<div class="group-r-body">
+<h2>搜索小组&nbsp;·&nbsp;·&nbsp;·&nbsp;·</h2>
+<div class="infobox">
+<div class="bd">
+    <form id="group_search" name="group_search" action="/search" method="get">
+    <div class="tc "><input name="q" class="a_search_text" type="text" size="36" maxlength="36" value="{%if keywords%}{{keywords}}{%endif%}"></div>
+    <div class="tc btnw">
+    <span><input class="butt button" name="group_submit" type="submit" value="搜索小组"> &nbsp; &nbsp;</span>
+    <span><input name="topic_submit" class="butt button" type="submit" value="搜索发言"></span>
+    
+    </div></form>
+    </div>
+</div>
+
+</div>
+{%elif viewname == 'topic_submit'%}
+
+
+
+
+
+<div class="group-l-body">
+<h1 class="pl20"></h1>
+<div class="infobox">
+<div class="bd">
+<h1>搜索含有“<span class="red">{{keywords}}</span>”的话题</h1>
+</div>
+</div>
+<div class="indent">
+{%if topic_list%}
+<table class="olt">
+<tbody><tr><td class="topic">话题</td>
+<td class="author">作者</td>
+<td nowrap="nowrap" class="num_comment">回应</td>
+<td align="right"class="date_last">最后回应</td></tr>
+{% for t in topic_list %}
+    <tr><td><span class="pl">
+    {%if t.set_top%}
+    <img alt="[置顶]" src="http://img3.douban.com/pics/stick.gif"></span>&nbsp;
+    {%endif%}
+    <a href="{{ url_for('group.topic_view',topic_id=t.id) }}" title="{{t.title}}">{{t.title}}</a></td>
+    <td nowrap="nowrap"><a href="{{ url_for('people.index',username=t.author.username) }}">{{t.author.name}}</a></td>
+    <td nowrap="nowrap">{{t.num_comment}}</td><td nowrap="nowrap" class="tr">{{t.date_last_response|timesince}}</td></tr>
+{% endfor %}            
+    </tbody></table>
+{%else%}
+<h2>暂无搜素结果</h2>
+{%endif%}
+</div>
+</div>
+<div class="group-r-body">
+<h2>搜索小组&nbsp;·&nbsp;·&nbsp;·&nbsp;·</h2>
+<div class="infobox">
+<div class="bd">
+    <form id="group_search" name="group_search" action="/search" method="get">
+    <div class="tc "><input name="q" class="a_search_text" type="text" size="36" maxlength="36" value="{%if keywords%}{{keywords}}{%endif%}"></div>
+    <div class="tc btnw">
+    <span><input class="butt button" name="group_submit" type="submit" value="搜索小组"> &nbsp; &nbsp;</span>
+    <span><input name="topic_submit" class="butt button" type="submit" value="搜索发言"></span>
+    
+    </div></form>
+    </div>
+</div>
+
+</div>
+
+
+
+
+{%endif%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

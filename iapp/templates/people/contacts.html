@@ -1,0 +1,51 @@
+{% extends "people/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+
+
+{% block title %}{% endblock %}
+
+
+{% block rmain %}
+
+<div class="indent">
+<div class="pcb">
+    <h2>{%if peopleinfo.id == g.user.id%}我{%else%}他{%endif%}关注的人:</h2>
+    <div class="box">
+    {% for m in main_list %}
+        <div class="pai">
+        <a href="{{ url_for('people.index',username=m.username) }}" title="{{m.name}}">
+        <img src="{{m.avatar|avatar_url}}" alt="{{m.name}}"></a>
+        </div>
+    
+    {% endfor %} 
+    
+    
+    
+    
+    
+    </div>
+    <h2>关注{%if peopleinfo.id == g.user.id%}我{%else%}他{%endif%}的人:</h2>  
+    <div class="box">
+    {% for f in follower_list %}
+        <div class="pai"><a href="{{ url_for('people.index',username=f.username) }}" title="{{f.name}}">
+        <img src="{{f.avatar|avatar_url}}" alt="{{f.name}}"></a>
+        </div>
+    
+    {% endfor %} 
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    </div>
+      
+</div>
+
+</div>
+</div>
+{% endblock %}
+

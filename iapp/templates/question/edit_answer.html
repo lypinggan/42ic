@@ -1,0 +1,39 @@
+{% extends "question/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% from "macros/_wmd.html" import wmd_editor %}
+{% block title %}编辑答案{% endblock %}
+{% block stylesheets  %} 
+<link href="{{ url_for('.static', filename='css/wmd.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block extra_javascripts %}
+<script type="text/javascript" src="{{ url_for('.static', filename='js/wmd.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/showdown.js') }}"></script>
+{% endblock %}
+{% block main %} 
+<h2 class="tac">编辑答案</h2>
+<h2></h2>
+<form method="POST" action="{{ url_for('question.edit_answer', answer_id=answer.id) }}" class="prebody">
+{{ form.hidden_tag() }}
+{{ render_errors(form.answer) }}
+<div>
+<ul>
+<li>问题名称：{{ question.title }}</li>
+<li>
+<div id="wmd-editor" class="wmd-panel">
+<div id="wmd-button-bar"></div>
+<textarea id="wmd-input" name="answer" rows="6"style="width:698px;">{{ answer.answer| safe }}</textarea>
+</div>
+<div id="wmd-preview" class="wmd-panel"></div>
+<script type="text/javascript">
+setup_wmd({
+                    input: "wmd-input",
+                    button_bar: "wmd-button-bar",
+                    preview: "wmd-preview",
+                    output: "wmd-output",
+                    buttons: "bold italic  link blockquote code image  ol ul  heading hr undo redo help",
+                });
+</script>
+</li>
+<div class="btnw">{{ form.submit(class="button")}}</div>
+</form>
+{% endblock %}

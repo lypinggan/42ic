@@ -1,0 +1,16 @@
+{% if answer_comment %}
+<div class="recreplylst">
+{% for c in answer_comment %}
+<div class="simplelst">
+<span class="pl">{{ c.content }}</span>
+<span class="recreply pl">- <a href="{{ url_for('people.index', username=c.author.username) }}">{{ c.author.name }}</a>
+</span>
+</div>
+{% endfor %}  
+{%endif%}
+<form method="post" rev="/ajax/saying_comment" class="reply a_saying_comment_form" name="" action="/ajax/saying_comment">
+            <span class="pl"></span>
+            <input type="text" name="comment" style="width:330px;margin-left:28px">
+            <input type="submit" value="发表回应">
+            <input name="aid" type="hidden" value="{{answer_id}}">
+</form>

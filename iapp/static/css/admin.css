@@ -1,0 +1,107 @@
+body, input, textarea {
+color: #373737;
+font: 15px "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-weight: 300;
+line-height: 1.625;
+}
+
+#wpadminbar {
+direction: ltr;
+background-color: #777;
+background-image: -moz-linear-gradient(bottom,#666,#7f7f7f);
+background-image: -webkit-gradient(linear,left bottom,left top,from(#666),to(#7f7f7f));
+color: #DDD;
+font: normal 12px/28px Arial,Helvetica,sans-serif;
+height: 28px;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 99999;
+min-width: 960px;
+}
+#wpadminbar .quicklinks ul {
+text-align: left;
+}
+#wpadminbar ul, #wpadminbar ul li {
+background: none;
+list-style: none;
+margin: 0;
+padding: 0;
+position: relative;
+z-index: 99999;
+}
+#wpadminbar * {
+height: auto;
+width: auto;
+margin: 0;
+padding: 0;
+position: static;
+text-transform: none;
+letter-spacing: normal;
+line-height: 1;
+font: normal 13px/28px Arial,Helvetica,sans-serif;
+color: #DDD;
+text-shadow: #555 0 -1px 0;
+}
+ul {
+list-style-type: none;
+list-style-image: none;
+display: list-item;
+text-align: -webkit-match-parent;
+}
+#wpadminbar .quicklinks ul li {
+float: left;
+}
+#wpadminbar ul, #wpadminbar ul li {
+background: none;
+list-style: none;
+margin: 0;
+padding: 0;
+position: relative;
+z-index: 99999;
+}
+#wpadminbar * {
+height: auto;
+width: auto;
+margin: 0;
+padding: 0;
+position: static;
+text-transform: none;
+letter-spacing: normal;
+line-height: 1;
+font: normal 13px/28px Arial,Helvetica,sans-serif;
+color: #DDD;
+text-shadow: #555 0 -1px 0;
+}
+#wpadminbar .quicklinks > ul > li > a {
+border-right: 1px solid #686868;
+border-left: 1px solid gray;
+}
+#wpadminbar .quicklinks a, #wpadminbar .shortlink-input {
+height: 28px;
+display: block;
+padding: 0 .85em;
+margin: 0;
+}
+#wpadminbar a, #wpadminbar a:hover, #wpadminbar a img, #wpadminbar a img:hover {
+outline: none;
+border: none;
+text-decoration: none;
+background: none;
+}
+
+
+/***/
+#page-outer {
+width: 950px;
+min-width: 950px;
+max-width: 950px;
+margin: 30px auto 0;
+-moz-border-radius: 5px 5px 0 0;
+-webkit-border-radius: 5px 5px 0 0;
+border-radius: 5px 5px 0 0;
+}
+.olt{
+width: 930px;
+}

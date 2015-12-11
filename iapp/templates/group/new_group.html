@@ -1,0 +1,60 @@
+{% extends "group/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% block title %}申请创建小组{% endblock %}
+{% block main %}
+<div class="group-l-body">
+<h1 class="pl20">申请创建小组</h1>
+<p></p>
+<form method="POST" action="" class="prebody">
+{{ form.hidden_tag() }}
+{{ render_errors(form.name) }}
+{{ render_errors(form.url_name) }}
+{{ render_errors(form.description) }}
+<table align="left" style="width:600px;">
+    <tbody>
+    <tr>
+        <td class="pl2" align="center" width="100">小组名称: </td>
+        <td style="width:500px;">{{ form.name(class="new-group-name") }}</td>
+    </tr>
+    <tr>
+        <td class="pl2" align="center" width="100">小组域名: </td>
+        <td style="width:500px;">http://www.42ic.com/group/{{ form.url_name(class="new-group-urlname") }}</td>
+    </tr>
+    <tr>
+        <td class="pl2" align="center" width="100"></td>
+        <td style="width:500px;">域名只能为英文字母或数字,成功后不能修改.</td>
+    </tr>
+    
+    <tr>
+        <td><p></p></td><td></td>
+    </tr>
+    
+    <tr>
+        <td class="pl2" align="center" width="100">小组介绍: </td>
+        <td>{{ form.description(class="new-group-description") }}
+        </td></tr>
+    <tr>
+        <td>
+        </td><td>
+            <div class="btnw">{{ form.submit(class="button")}}</div>
+        </td>
+    </tr>
+</tbody></table>
+
+</form>
+
+
+
+
+</div>
+<div class="group-r-body">
+
+<h2>小组创建 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;
+        </h2>
+<div class="indent"><span class="pl">
+    创建小组申请需要审核通过后才能完成创建，管理员会在2日内审核申请，审核结果会用站内消息通知你，请耐心等待。<br><br>
+    更多小组说明，请查看<a href="/help/group" target="_blank">帮助中心</a>。
+    </span></div>
+
+</div>
+{% endblock %}

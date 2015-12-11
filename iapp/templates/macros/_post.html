@@ -1,0 +1,241 @@
+{% macro render_answer( answer,question,g ) %}
+<div id="answer_list">
+{% for a in answer %}
+<div class="sdw" id="answer-{{ a.id }}">
+
+<div class="a-info">
+<a href="{{ url_for('people.index', username=a.author.username) }}" class="Nm" oid="">
+<img src="{{ a.author.avatar|avatar_url }}" alt="" class="Fn Yi">
+</a>
+{% if a.answer_ok %}
+<span class="a_folder vote-accepted-on"></span>
+{% endif %}
+</div>
+
+<div id = "sd-{{a.id}}"class="sd">
+ 
+<div class="ab">
+<span class="eE">
+<a href="{{ url_for('people.index', username=a.author.username) }}" class="fwb" >{{ a.author.name }}</a>
+({{a.author.tagline}})</span>
+<span class="c9"> &nbsp;-&nbsp; 
+<span>{{ a.date_created|timesince }}
+</span>
+<span class="fz10">&nbsp;-&nbsp; 署名-非商业使用-禁止演绎</span>
+</span>
+
+<span role="button" class="a-j Mo bg " title="“选项”菜单" tabindex="0" aria-haspopup="true"></span>
+</div> 
+ 
+ 
+<pre>{{ a.answer| tohtml | safe }}</pre>
+<div class="bar">
+<span class="fl">
+{%if g.user %}
+{%if a.author.id != g.user.id%}
+<a href="#" data-aid="{{a.id}}" class="a_thinkhim" >感谢他</a>
+{%endif%}
+    {%if question.author.id == g.user.id %}
+         &nbsp;|&nbsp;更多操作：
+        {%if a.answer_ok == 0 or a.author.id != g.user.id%}
+            <a href="#" data-aid="{{a.id}}"class="a_mtra" >设为满意答案</a>
+        {% endif %}
+    {% endif %}
+    {%if a.author.id == g.user.id %}
+       <a href="{{ url_for('question.edit_answer', answer_id=a.id) }}" >编辑答案</a>
+    {% endif %}
+{% endif %}
+</span>
+</div>
+<div class="clear"></div>
+
+
+
+
+
+
+
+</div>
+<!-- SD over -->
+<div class="Om a-z" style="-webkit-user-select: none; right: 15px; top: 30px; visibility: visible;display:none;" " role="menu" aria-haspopup="true" tabindex="-1" aria-activedescendant=""><div class="c-G-j a-H c-G-j-Bc Nh" role="menuitem" style="-webkit-user-select: none; " id=":5t"><div class="a-H-r" style="-webkit-user-select: none; ">举报滥用行为</div></div><div class="c-G-j a-H c-G-j-Bc Zi cf" role="menuitem" style="-webkit-user-select: none; " id=":5u"><div class="a-H-r" style="-webkit-user-select: none; ">忽略此信息</div></div><div class="c-G-j a-H c-G-j-Bc co" role="menuitem" style="-webkit-user-select: none; " id=":5v">
+<div class="a-H-r" style="-webkit-user-select: none; ">阻止此人</div>
+</div></div>
+
+
+</div>
+<div class="clear"></div>
+{% endfor %}
+</div>
+{% endmacro %}
+
+
+
+
+{% macro render_question( question ) %}
+<div id="question-mini-list">
+{% for q in question %}
+<div class="question-summary narrow" id="question-summary-{{ q.id }}">
+    <div onclick="window.location.href='{{ url_for('question.view', question_id=q.id) }}'" class="cp">
+        <div class="vsv votes">
+            <div class="mini-counts">{{ q.votes }}</div>
+            <div>喜欢</div>
+        </div>
+        <div class="vsv status {% if q.answer_id > 0 %} answered{%endif%}">
+            <div class="mini-counts">{{ q.num_answer }}</div>
+            <div>答案</div>
+        </div>
+        <div class="vsv views">
+            <div class="mini-counts">{{ q.views }}</div>
+            <div>查看</div>
+        </div>
+    </div>
+    <div class="summary">
+        
+        <h3><a href="{{ url_for('question.view', question_id=q.id) }}" class="question-hyperlink" title="{{ q.title }}">{{ q.title }}</a></h3>
+{{ q.tags|for_tags|safe }}
+        <div class="started">
+<span title="{{ q.date_created|timesince }}" class="relativetime">{{ q.date_created|timesince }}</span><a href="{{ url_for('people.index', username=q.author.username) }}">{{ q.author.name}}</a> <span class="reputation-score" title="威望">{{ q.author.prestige}}</span>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+{% endmacro %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% macro render_post(post) %}
+<h3>{% if post.permissions.vote %}
+<span id="vote-{{ post.id }}">
+    <a href="#" onclick="eleye.vote_post('{{ url_for('post.upvote', post_id=post.id) }}');"><img src="{{ theme_static("images/up-icon.png") }}"></a>
+    <a href="#" onclick="eleye.vote_post('{{ url_for('post.downvote', post_id=post.id) }}');"><img src="{{ theme_static("images/down-icon.png") }}"></a>  
+</span>
+{% endif %}
+<a href="{{ post.link if post.link else post.url }}" target="_blank" class="{{ post.access_name }}" title="{{ post.description }}">{{ post.title }}</a>
+
+{% if post.link %}
+<span class="domain">&rarr; {{ post.domain }}</span>
+{% endif %}
+
+</h3>
+<p class="post-info">
+<a href="{{ post.url }}" title="点击查看内容">{{ post.num_comments }}条评论</a> ，
+{{ _("Score") }} <span id="score-{{ post.id }}">{{ post.score }}</span> ， 
+<a href="{{ url_for('user.posts', username=post.author.username) }}">{{ post.author.username }}</a>
+{{ _("%(date)s", date=post.date_created|timesince) }}推荐
+ 
+    </p>    
+{% endmacro %}
+
+{% macro render_comment(comment) %}
+
+<li class="comment span-{{ 24 - comment.depth }} {% if comment.parent_id %}push-1{% endif %} last" id="comment-{{ comment.id }}">
+<div class="comment-info">
+<img src="{{ comment.author.gravatar_url(30) }}" alt="{{ comment.author.username }}">
+<a href="{{ url_for('user.posts', username=comment.author.username) }}">{{ comment.author.username }}</a> 
+{{ comment.date_created|timesince }}<br>
+{% if comment.permissions.vote %}
+   <span id="vote-comment-{{ comment.id }}">
+       <a href="#" onclick="eleye.vote_comment('{{ url_for('comment.upvote', comment_id=comment.id) }}');"><img src="{{ theme_static("images/up-icon.png") }}"></a>
+    <a href="#" onclick="eleye.vote_comment('{{ url_for('comment.downvote', comment_id=comment.id) }}');"><img src="{{ theme_static("images/down-icon.png") }}"></a>  
+</span>
+{% endif %}
+
+{{ _("Score") }} <span id="score-comment-{{ comment.id }}">{{ comment.score }}</span> |
+<a href="{{ comment.permalink }}">链接</a> 
+    {% if g.user %}
+
+   | <a href="#" onclick="$('#comment-form-{{ comment.id }}').toggle();return false;">回复</a> | 
+
+    {% if comment.permissions.edit %}
+    <a href="#edit-comment-form-{{ comment.id }}" onclick="$('#edit-comment-form-{{ comment.id }}').toggle();">编辑</a> |
+    <a href="#" onclick="$('#delete-comment-{{ comment.id }}').toggle(); return false;">{{ _("delete") }}</a> 
+    <div id="delete-comment-{{ comment.id }}" style="display:none;">
+        <strong>{{ _("Are you sure you want to delete this comment ?") }} </strong>
+        <a href="#" onclick="eleye.delete_comment('{{ url_for("comment.delete", comment_id=comment.id) }}'); return false;">{{ _("yes") }}</a> / 
+        <a href="#" onclick="$('#delete-comment-{{ comment.id }}').toggle(); return false;">{{ _("no") }}</a>
+    </div>
+    {% else %}
+
+    <a href="{{ url_for('comment.report_abuse', comment_id=comment.id) }}">{{ _("report abuse") }}</a> 
+
+    {% endif %}
+
+    {% endif %}
+</div>
+
+    <div {% if comment.score < 0 %}class="faded"{% endif %}>
+    {% if comment.comment %}
+    {{ comment.markdown }}
+    {% endif %}
+    </div>
+
+    {% if g.user %}
+    <form id="comment-form-{{ comment.id }}" 
+          method="POST" 
+          style="display:none;"
+          action="{{ url_for('post.add_comment', post_id=post.id, parent_id=comment.id) }}">
+        {{ comment_form.hidden_tag() }}
+        <ul>
+            <li>
+            {{ comment_form.comment }}
+            </li>
+        <li>
+        {{ comment_form.submit(value=_("Add comment")) }}
+            </li>
+            <li>
+            </li>
+        </ul>
+    </form>
+    
+    {% if g.user.id == comment.author.id %}
+    <form id="edit-comment-form-{{ comment.id }}"
+        style="display:none;"
+        method="POST"
+        action="{{ url_for('comment.edit', comment_id=comment.id) }}">
+        {% with form = edit_comment_form(comment) %}
+        {{ form.hidden_tag() }}
+        <ul>
+            <li>
+            {{ form.comment }} 
+            </li>
+            <li>
+            {{ form.submit }}
+            {{ form.cancel(onclick="$('#edit-comment-form-%d').toggle(); return false;" % comment.id) }}
+            </li>
+            {{ markdown_link() }}}
+ 
+        </ul>
+        {% endwith %}
+    </form>
+    {% endif %}
+
+    {% endif %}
+
+    {% if comment.comments %}
+    <ul class="comments">
+        {% for child_comment in comment.comments %}
+        {{ render_comment(child_comment) }}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>
+
+{% endmacro %}
+
+

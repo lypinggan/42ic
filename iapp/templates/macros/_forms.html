@@ -1,0 +1,7 @@
+{% macro render_errors(field) %}
+{% if field.errors %}
+    {% for error in field.errors %}
+    <p class="red tac">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+{% endmacro %}

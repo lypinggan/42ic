@@ -1,0 +1,9 @@
+{% set messages = get_flashed_messages(True) %}
+{% if messages %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#message').fadeOut(5000);
+    });
+</script>
+<div id="message">{% for status, message in messages %}{{ message }}{% endfor %}</div>
+{% endif %}

@@ -1,0 +1,78 @@
+{% extends "group/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}我的小组{% endblock %}
+{% block main %}
+
+<div class="group-l-body">
+<h1>最新话题</h1>
+<div class="indent">
+    
+    <table class="gil">
+    <tbody>
+    <tr>
+    <td class="topic">话题</td>
+    <td class="group">小组</td>
+    <td class="author">作者</td>
+    <td class="num_comment">回应</td>
+    <td class="date_last tr">最后回应</td>
+    </tr>
+    
+    {% for t in topic_list.items %}
+        <tr><td><span class="pl">
+        {%if t.set_top%}
+        <img alt="[置顶]" src="http://img3.douban.com/pics/stick.gif"></span>&nbsp;
+        {%endif%}
+        <a href="{{ url_for('group.topic_view',topic_id=t.id) }}" title="{{t.title}}">{{t.title}}</a></td>
+        <td><a href="{{ url_for('group.group_view',slug=t.group.url_name) }}" title="{{t.group.name}}">{{t.group.name}}</a></td>
+        <td><a href="{{ url_for('people.index',username=t.author.username) }}">{{t.author.name}}</a></td>
+        <td>{{t.num_comment}}</td>
+        <td class="tr c9">{{t.date_last_response|timesince}}</td></tr>
+    
+    {% endfor %}            
+        </tbody></table>
+    </div>
+    {{ paginate(topic_list, page_url) }}
+
+
+
+
+
+
+
+</div>
+<div class="group-r-body">
+<h2>搜索小组&nbsp;·&nbsp;·&nbsp;·&nbsp;·</h2>
+
+<div class="infobox">
+<div class="bd">
+    <form id="group_search" name="group_search" action="/search" method="get">
+    <div class="tc "><input name="q" class="a_search_text" type="text" size="36" maxlength="36" value=""></div>
+    <div class="tc btnw">
+    <span><input class="butt button" name="group_submit" type="submit" value="搜索小组"> &nbsp; &nbsp;</span>
+    <span><input name="topic_submit" class="butt button" type="submit" value="搜索发言"></span>
+    
+    </div></form>
+    </div>
+     </div>
+<div class="clear"></div>
+<h2 class="mt28">热门小组 &nbsp; ·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;
+</h2>
+<div class="obss">
+{% for mq in hot_group %}
+<dl class="ob">
+<dt><a href="{{ url_for('group.group_view',slug=mq.url_name) }}">
+<img src="{%if mq.group_icon_url == None %}http://www.42ic.com/static/groupicon/no.png{%else%}http://www.42ic.com/static/groupicon/{{mq.group_icon_url}}{%endif%}" class="m_sub_img" alt="{{mq.name}}"></a>
+</dt>
+        <dd><a href="{{ url_for('group.group_view',slug=mq.url_name) }}">{{mq.name}}</a> 
+        <span>({{mq.num_members}})</span>
+        </dd>
+</dl>
+{% endfor %}
+</div>
+
+
+
+
+</div>
+
+{% endblock %}

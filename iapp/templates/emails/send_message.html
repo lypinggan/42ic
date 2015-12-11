@@ -1,0 +1,15 @@
+﻿Hi {{ user.username }}
+
+42ic.com上的 {{ g.user.username }}给你发送了一条消息.
+
+消息内容是:
+
+{{ subject }}
+
+{{ message }}
+
+{% if user.permissions.send_message %}
+点击下面链接回复消息（或复制到浏览器中打开）:
+
+{{ url_for('user.send_message', user_id=g.user.id, _external=True) }}
+{% endif %}

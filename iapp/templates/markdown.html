@@ -1,0 +1,135 @@
+﻿{% extends theme("layout.html") %}
+{% block title %}Markdown 语法-eleye.org{% endblock %}
+{% block content %}
+<h1>Markdown 语法</h1>
+<div class="bm_wrap">
+        
+    
+<h2>Markdown 语法及效果对比(右侧)</h2>
+
+<div class="left">
+	<h3>要输入斜体的话:</h3>
+	<p>
+	_以一个下划线开头的内容是斜体，可以包含空格_ <br>
+	*或者以一个星号开头*
+	</p>
+	
+	<h3>要输入粗体的话: </h3>
+	<p>
+	__这里开始是粗体内容，可以有空格__<br>
+	**或者以星号开头**
+	</p>
+	
+		<h3>要输入标题的话:</h3>
+	<p>
+	# 这是一级标题 <br>
+	## 这是二级  <br>
+	...<br>
+	###### 没错，这是六级标题<br>
+	</p>
+	
+		<h3>加入引用</h3>
+	<p>
+		以 &gt; 开头的行全都是引用，例如<br>
+		&gt; 毛主席说过:<br>
+		&gt; 不以结婚位目的的恋爱都是耍流氓
+	</p>
+		
+	    <h3>列表</h3>
+	<p>
+		* Apple <br>
+		* Microsoft<br>
+		* Google<br>
+	</p>
+		
+		<h3>代码</h3>
+	<p>
+		要输入代码的话只需要每行前面有4个或四个以上的空格或者TAB，比如
+	</p>
+	<pre>    int main(){
+	    printf("Hello Markdown");
+    }
+	</pre>
+	<p>
+	   在一行中加入代码的话只需要这样 `print "Python"`
+	   <br>(1 前面,TAB上面那个键)
+	</p>
+	
+	    <h3>加入链接</h3>
+	<p>
+	    [链接文字](链接地址)
+	</p>
+	 
+	    <h3>加入图片</h3>
+	<p>
+	    ![图片alt文字](图片地址) <br>
+	</p>
+</div>
+
+
+<div class="right">
+<div class="bm_content markdown">
+            <h3>要输入斜体的话:</h3>
+<p><em>以一个下划线开头的内容是斜体，可以包含空格</em> 
+<br>
+<em>或者以一个星号开头</em></p>
+<h3>要输入粗体的话:</h3>
+<p><strong>这里开始是粗体内容，可以有空格</strong><br>
+
+<strong>或者以星号开头</strong></p>
+<h3>要输入标题的话:</h3>
+<h1>这是一级标题</h1>
+<h2>这是二级</h2>
+<p>...</p>
+<h6>没错，这是六级标题</h6>
+<h3>加入引用</h3>
+<p>以 &gt; 开头的行全都是引用，例如</p>
+<blockquote>
+<p>毛主席说过:<br>
+
+不以结婚位目的的恋爱都是耍流氓</p>
+</blockquote>
+<h3>列表</h3>
+<ul>
+<li>Apple </li>
+<li>Microsoft</li>
+<li>Google</li>
+</ul>
+<h3>代码</h3>
+<p>要输入代码的话只需要每行前面有4个或四个以上的空格或者TAB，比如
+</p><pre><code>int main(){
+    printf("Hello Markdown");
+}
+</code></pre>
+<p>在一行中加入代码的话只需要这样 <code>print "Python"</code>
+       <br>(1 前面,TAB上面那个键)
+</p>
+<h3>加入链接</h3>
+<p><a href="http://baye.me">链接文字</a></p>
+<h3>加入图片</h3>
+<p><img alt="图片alt文字" src="http://baye.me/media/img/icons/favicon.png"> </p>
+        </div>
+</div>
+
+<div class="clear"></div>
+
+</div>
+
+<p class="highlight">注意:<br>
+1. 回车并不换行，要换行的话需要在行尾打上两个或以上空格<br>
+2. 引用中也可以使用 粗体，斜体，代码等样式，引用中也可以包括引用<br>
+3. 你可以在这个页面的下面测试以上语法<br>
+4. 你可以在这里获得完整的Markdown 语法介绍: <a href="http://daringfireball.net/projects/markdown/syntax">http://daringfireball.net/projects/markdown/syntax</a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

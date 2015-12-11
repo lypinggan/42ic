@@ -1,0 +1,8 @@
+﻿{% if g.user %}
+    <a href="{{ url_for('people.index',username=g.user.username) }}">{{ g.user.username }}的主页</a>
+    <a href="{{ url_for('account.profile') }}">账户</a>
+    <a href="{{ url_for('account.logout') }}">退出</a>
+{% else %}
+<a href="{{ url_for('account.login', next=request.url if g.keep_login_url else None) }}">登陆</a>
+<a href="{{ url_for('account.signup', next=request.url if g.keep_login_url else None) }}">注册</a>
+{% endif %}

@@ -1,0 +1,28 @@
+{% extends "people/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+
+
+{% block title %}{% endblock %}
+
+
+{% block rmain %}
+
+<div class="indent">
+    
+    <table class="pnl">
+    <tbody><tr>
+    <td class="topic">话题</td>
+    <td align="right"class="">时间</td>
+    </tr>
+    {% for t in topic_list.items %}
+        <tr>
+        <td><a href="/group/topic/{{t.id}}">{{t.title}}</a></td>
+        <td >{{t.date_created}}</td>
+        </tr>
+    {% endfor %}            
+        </tbody></table>
+    </div>
+{{ paginate(topic_list, page_url) }}
+</div>
+{% endblock %}
+

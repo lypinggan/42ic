@@ -1,0 +1,37 @@
+{% extends "question/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% from "macros/_editor.html" import editor %}
+{% block title %}提问题{% endblock %}
+{% block stylesheets  %} 
+<link href="{{ url_for('.static', filename='css/wmd.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block extra_javascripts %}
+<script type="text/javascript" src="{{ url_for('.static', filename='js/tageditor.js') }}"></script>
+
+{% endblock %}
+{% block main %} 
+<h2 class="tac mt28">书写问题。。。</h2>
+<h2></h2>
+<form method="POST" action="{{ url_for('question.ask') }}" class="prebody">
+{{ form.hidden_tag() }}
+{{ render_errors(form.title) }}
+{{ render_errors(form.tags) }}
+<div>
+<ul>
+<li><input id="title" name="title" class="input ask-title-input" size="50" type="text" value="{{ title }}" placeholder="问题标题..."></li>
+<li>
+{{ editor('description') }}
+</li>
+<li>
+<input id="tags" name="tags" class="input ask-title-input" size="50" type="text" value=""placeholder="问题标签（如：电子,电工,编程）..."><br>
+<small>用英文逗号分隔标签</small>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/upload" target="_blank">上传文件</a></li>
+</ul>
+<script type="text/javascript">
+$(function() {
+
+    bindTagFilterAutoComplete('#tags');
+});
+</script>
+<div class="btnw">{{ form.submit(class="button")}}</div>
+</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "question/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% from "macros/_editor.html" import editor %}
+{% block title %}编辑问题{% endblock %}
+{% block stylesheets  %} 
+<link href="{{ url_for('.static', filename='css/wmd.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block extra_javascripts %}
+{% endblock %}
+{% block main %} 
+<h2 class="tac">编辑问题</h2>
+<h2></h2>
+<form method="POST" action="{{ url_for('question.edit', question_id=question.id) }}" class="prebody">
+{{ form.hidden_tag() }}
+{{ render_errors(form.title) }}
+{{ render_errors(form.tags) }}
+<div>
+<ul>
+<li>{{ form.title( class="w698" ) }}</li>
+<li>
+<div id="editor" class="panel">
+<textarea id="wmd-input" name="description" rows="6"style="width:698px;">{{ question.description }}</textarea>
+</div>
+
+<li>
+<input id="tags" name="tags" size="50" type="text" value="{{ question.tags}}"style="width:698px;"placeholder="问题标签（如：电子,电工,编程）..."><br><small>用英文逗号分隔标签</small></li>
+</ul>
+<div class="btnw">{{ form.submit(class="button")}}</div>
+</form>
+{% endblock %}

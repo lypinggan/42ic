@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>后台</title>
+        <link rel="stylesheet" href="{{ url_for('.static', filename='css/admin.css') }}" type="text/css" media="screen, projection">
+        {% block stylesheets %}{% endblock %}
+
+        {% block extra_stylesheets %}{% endblock %}
+
+        {% block javascripts %}
+        <script src="{{ url_for('.static', filename='js/c.js') }}"></script>
+        <script src="{{ url_for('.static', filename='js/admin-bar.js') }}"></script>
+        {% endblock %}
+        {% block extra_javascripts %}{% endblock %}
+        {% block extrahead %}{% endblock %}
+    </head>
+<body>
+<div id="wpadminbar">
+			<div class="quicklinks">
+<ul>
+													
+<li class="menupop"><a href=""><span>42ic</span></a></li>
+<li><a href=""><span></span></a></li>
+<li><a href=""><span></span></a></li>
+<li class="menupop"><a href="{{ url_for('admin.user') }}"><span>用户管理</span></a></li>
+<li class="menupop"><a href=""><span>问题管理</span></a></li>
+<li class="menupop"><a href=""><span>小组管理</span></a></li>
+<li class="menupop"><a href="{{ url_for('admin.group_requisition') }}"><span>小组申请</span></a></li>
+
+<ul>
+
+
+			</div>
+
+		</div>
+<!-- 顶部结束 -->
+<div id="page-outer">
+{% block main %}
+
+{% endblock %}
+</div>
+</body>
+</html>

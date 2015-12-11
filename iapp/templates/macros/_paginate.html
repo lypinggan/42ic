@@ -1,0 +1,11 @@
+﻿{% macro paginate(page_obj, page_url) %}
+{% if page_obj.pages > 1 %}
+{% if page_obj.has_prev %}
+<a title="快捷键 ←" href="{{ page_url(page_obj.page - 1) }}" class="sprev"></a>
+{% endif %}
+
+{% if page_obj.has_next %}
+<a title="快捷键 →" href="{{ page_url(page_obj.page + 1) }}" class="snext"></a>
+{% endif %}
+{% endif %}
+{% endmacro %}

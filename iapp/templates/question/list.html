@@ -1,0 +1,70 @@
+{% extends "question/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% from "macros/_post.html" import render_question %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}{{ title }}{% endblock %}
+{% block stylesheets  %} 
+{% endblock %}
+{% block extra_javascripts %}
+{% endblock %}
+{% block main %} 
+<!--问题列表开始-->
+<div class="l-body">
+<!-- 信息流 -->
+{%if g.user %}
+<div class="user-info">
+<a href="{{ url_for('people.index', username=g.user.username) }}">
+<img src="{{g.user.avatar|avatar_url}}" alt="{{g.user.name}}的个人资料照片"></a>
+<a href="{{ url_for('people.index', username=g.user.username) }}">{{g.user.name}}</a>
+</div>
+{%endif%}
+<div class="info-flow">
+<a href="" target="_top" class="">信息流</a>
+<div class="info-folw-ul">
+    <div class="info-folw-li {%if viewname =='latest' %}on{%endif%}">
+        <a href="?view=latest" target="_top" class=""><span class="info-flow-ul-icon"></span>最新</a>
+    </div>
+    <div class="info-folw-li {%if viewname =='hottest' %}on{%endif%}">
+        <a href="?view=hottest" target="_top" class=""><span class="info-flow-ul-icon"></span>热门</a>
+    </div>
+    <div class="info-folw-li {%if viewname =='hotmonth' %}on{%endif%}">
+        <a href="?view=hotmonth" target="_top" class=""><span class="info-flow-ul-icon"></span>本月热门</a>
+    </div>
+    <div class="info-folw-li {%if viewname =='unanswered' %}on{%endif%}">
+        <a href="?view=unanswered" target="_top" class=""><span class="info-flow-ul-icon"></span>等待回答</a>
+    </div>
+
+</div>
+{%if g.user %}
+<a href=""></a>
+<a href="" target="_top" class="">我的问题</a>
+<div class="info-folw-ul">
+    <div class="info-folw-li {%if viewname =='my_questions' %}on{%endif%}">
+        <a href="?view=my_questions" target="_top" class=""><span class="info-flow-ul-icon"></span>我的提问</a>
+    </div>
+    <div class="info-folw-li {%if viewname =='my_follow_questions' %}on{%endif%}">
+        <a href="?view=my_follow_questions" target="_top" class=""><span class="info-flow-ul-icon"></span>我关注的问题</a>
+    </div>
+    <div class="info-folw-li {%if viewname =='my_like_questions' %}on{%endif%}">
+        <a href="?view=my_like_questions" target="_top" class=""><span class="info-flow-ul-icon"></span>我喜欢的问题</a>
+    </div>
+
+</div>
+{%endif%}
+
+</div>
+
+</div>
+<div class="r-body">
+<div class="menu-hd clearfix">
+知识问答中心
+<a href="/question/ask" class="butt button fr" >我要提问</a>
+</div>
+
+
+
+{{ render_question( question.items ) }}
+
+{{ paginate(question, page_url) }}
+</div>
+{% endblock %}

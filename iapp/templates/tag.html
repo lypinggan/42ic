@@ -1,0 +1,27 @@
+{% extends "question/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% from "macros/_post.html" import render_question %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}关于《{{tag.slug}}》的问题{% endblock %}
+{% block stylesheets  %} 
+{% endblock %}
+{% block extra_javascripts %}
+{% endblock %}
+{% block main %} 
+<!--问题列表开始-->
+<div class="l-body">
+
+
+</div>
+<div class="r-body">
+<div class="menu-hd clearfix">
+关于《{{tag.slug}}》的问题
+</div>
+
+
+
+{{ render_question( page_obj.items ) }}
+
+{{ paginate(page_obj, page_url) }}
+</div>
+{% endblock %}

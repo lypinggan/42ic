@@ -1,0 +1,47 @@
+{% extends "group/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% block title %}小组发言{% endblock %}
+{% block main %}
+<div class="group-l-body">
+<h1 class="pl20">编辑话题</h1>
+<p></p>
+<form method="POST" action="" class="prebody">
+{{ form.hidden_tag() }}
+{{ render_errors(form.title) }}
+{{ render_errors(form.description) }}
+<table align="left" style="width:600px;">
+    <tbody>
+    <tr>
+        <td class="pl2" align="center" width="70">标题: </td>
+        <td style="width:530px;">{{ form.title(class="new-topic-title") }}</td>
+    </tr>
+    <tr>
+        <td><p></p></td><td></td>
+    </tr>
+    
+    <tr>
+        <td align="center" valign="top">
+            <br><img src="{{ g.user.avatar|avatar_url }}">
+        </td>
+        <td>{{ form.description(class="new-topic-description") }}
+        </td></tr>
+    <tr>
+        <td>
+        </td><td>
+            <div class="btnw">{{ form.submit(class="button")}}</div>
+        </td>
+    </tr>
+</tbody></table>
+
+</form>
+
+
+
+
+</div>
+<div class="group-r-body">
+
+<p class="pl2">回到<a href="{{ url_for('group.topic_view',topic_id=topic.id) }}">《{{topic.title}}》</a>话题</p>
+
+</div>
+{% endblock %}

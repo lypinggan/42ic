@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+{% block main %}
+<div class="indent">
+    <table class="olt">
+    <tbody>
+    <tr><td>ID</td>
+    <td>用户名</td>
+    <td nowrap="nowrap">姓名</td>
+    <td align="right">威望</td>
+    </tr>
+    {% for u in user_list %}
+        <tr>
+        <td>{{u.id}}</td>
+        <td>{{u.username}}</td>
+        <td><a href="{{ url_for('people.index',username=u.username) }}">{{u.name}}</a></td>
+        <td>{{u.prestige}}</td></tr>
+    
+    {% endfor %}            
+        </tbody></table>
+    </div>
+
+{% endblock %}

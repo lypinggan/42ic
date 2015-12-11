@@ -1,0 +1,84 @@
+{% extends "question/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% from "macros/_post.html" import render_answer %}
+{% block title %}{{ question.title }}{% endblock %}
+{% block stylesheets  %} 
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/prettify.css') }}" type="text/css" media="screen, projection">
+{% endblock %}
+{% block extra_javascripts %}
+<script src="{{ url_for('.static', filename='js/question_view.js') }}"></script>
+<script src="{{ url_for('.static', filename='js/prettify.js') }}"></script>
+{% endblock %}
+{% block main %} 
+<div class="q_body" id="q_body">
+<h1><a href="{{ url_for('question.view', question_id=question.id) }}" class="c0">{{ question.title }}</a></h1>
+</div>
+<input name="question_id" type="hidden" style="display:none;" value="{{ question.id }}">
+
+<div id="question">
+<pre class="prebody">
+<p>
+作者⊙{{ question.author.username }}
+</p>
+{{ question.description | tohtml | safe }}
+<p class="tar mt28"><span class="fl c9">{{ question.tags|for_tags|safe }}
+{%if g.user %}
+{%if question.author.id == g.user.id %}-更多操作：<a href="{{ url_for('question.edit', question_id=question.id) }}" >编辑</a>
+{% endif %}{% endif %}
+</span><a href="{{ url_for('people.index', username=question.author.username) }}">{{ question.author.name }}</a>于{{ question.date_created|timesince }}</p>
+
+
+<div class="sns-bar">
+	<div class="fl">
+	<span class="votes-num"></span>       
+	<a class="btn-votes" title="" href="#">喜欢</a>
+	<span class="follows-num"></span>       
+	<a class="btn-follow" title="" href="#">关注</a>
+	</div>
+	<div class="fr">
+		<div class="rec-sec">
+		<span class="rec">
+		<span class="rec-num">共有{{question.num_answer}}个答案</span>
+		</div>
+	</div>
+</div>
+
+
+</pre>
+</div>
+
+<!--答案开始-->
+{{ render_answer( answer,question,g ) }}
+<!--答案结束-->
+{%if g.user%}
+	{%if question.author.id == g.user.id %}
+		<h2 class="prebody">这是我的问题，不能回答哦！不过补充一下问题还是可以的。</h2>
+	{%elif have_answered %}
+		<h2 class="prebody">您已经回答过问题，不能再回答哦！不过修改一下答案还是可以的。</h2>
+	{%else%}
+		<!--我的答案-->
+		<form method="POST" action="{{ url_for('question.new_answer', question_id = question.id) }}" class="prebody">
+		<h2>我的答案</h2>
+		<textarea id="wmd-input" name="answer" rows="6"style="width:730px;"></textarea>
+		<div class="btnw"><input name="submit"type="submit" value="此致,敬礼!" class="button tal"></div>
+		</form>
+		<!--我的答案结束-->
+	{%endif%}
+{%else%}
+	<h2 class="prebody">想参与解答或提问吗？赶快登陆或加入我们吧！</h2>
+{%endif%}
+
+
+
+</div>
+<script type="text/javascript">
+$(window).load(function(){
+     prettyPrint();
+})
+
+
+</script>
+
+
+
+{% endblock %}

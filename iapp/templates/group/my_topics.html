@@ -1,0 +1,50 @@
+{% extends "group/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}我的小组{% endblock %}
+{% block main %}
+<div class="group-l-body">
+<h1>我发起的话题</h1>
+<div class="zbar clearfix"><div>
+            <a href="http://www.42ic.com/group/">最新话题</a>
+            <span class="now"><span>我发起的话题</span></span>
+    </div></div>
+
+<div class="indent">
+    
+    <table class="gil">
+    <tbody>
+    <tr>
+    <td class="topic">话题</td>
+    <td class="group">小组</td>
+    <td class="author">作者</td>
+    <td class="num_comment">回应</td>
+    <td class="date_last tr">最后回应</td>
+    </tr>
+    {% for t in topic_list.items %}
+        <tr><td><span class="pl">
+        {%if t.set_top%}
+        <img alt="[置顶]" src="http://img3.douban.com/pics/stick.gif"></span>&nbsp;
+        {%endif%}
+        <a href="{{ url_for('group.topic_view',topic_id=t.id) }}" title="{{t.title}}">{{t.title}}</a></td>
+        <td><a href="{{ url_for('group.group_view',slug=t.group.url_name) }}" title="{{t.group.name}}">{{t.group.name}}</a></td>
+        <td><a href="{{ url_for('people.index',username=t.author.username) }}">{{t.author.name}}</a></td>
+        <td>{{t.num_comment}}</td>
+        <td class="tr">{{t.date_last_response|timesince}}</td></tr>
+    
+    {% endfor %}            
+        </tbody></table>
+    </div>
+
+{{ paginate(topic_list, page_url) }}
+
+
+
+
+
+
+</div>
+<div class="group-r-body">
+
+</div>
+
+{% endblock %}

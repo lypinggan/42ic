@@ -1,0 +1,102 @@
+{% extends "group/base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% block title %}{{topic.title}}{% endblock %}
+{% block stylesheets  %} 
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/prettify.css') }}" type="text/css" media="screen, projection">
+{% endblock %}
+{% block extra_javascripts %}
+<script src="{{ url_for('.static', filename='js/prettify.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+
+<div class="group-l-body">
+<h1>{{topic.title}}</h1>
+<p></p>
+<div class="topic-content clearfix">
+        <div class="user-face">
+            <a href="{{ url_for('people.index',username=topic.author.username) }}"><img class="pil" src="{{topic.author.avatar|avatar_url}}" alt="{{topic.author.name}}"></a>
+        </div>
+        <div class="topic-doc">
+            <h3>
+                <span class="color-green">{{topic.date_created}}</span>
+                <span class="pl20 c9">来自: <a href="{{ url_for('people.index',username=topic.author.username) }}">{{topic.author.name}}</a>({{topic.author.tagline}})</span>
+            </h3>
+            {{topic.description|tohtml|safe}}
+
+            <div class="topic-opt clearfix">
+{%if topic.group.leader_id == g.user.id or topic.author_id == g.user.id%}
+<span class="fleft c9">&gt;&nbsp;<a rel="nofollow" class="c9" href="/group/topic/{{topic.id}}/edit">修改</a></span>
+<span class="fleft c9">&gt;&nbsp;<a rel="nofollow" href="/group/topic/{{topic.id}}/delete" class="a_confirm_link c9" title="删除{{topic.author.name}}的发言">删除</a></span>
+{%endif%}
+                
+                &nbsp; &nbsp;
+
+            </div>
+
+    </div>
+</div>
+
+<!--回应-->
+
+
+
+<ul class="topic-reply">
+        
+{% for r in reply_list %}
+<li class="clearfix">
+    <div class="user-face">
+        <a href="{{ url_for('people.index',username=r.author.username) }}">
+        <img class="pil" src="{{r.author.avatar|avatar_url}}" alt="{{r.author.name}}"></a>
+    </div>
+    <div class="reply-doc">
+        <div class="bg-img-green">
+            <h4>{{r.date_created}}
+            
+               <span class="pl20"> <a href="{{ url_for('people.index',username=r.author.username) }}">{{r.author.name}}</a>({{r.author.tagline}})</span>
+            </h4>
+        </div>
+        {{r.content|tohtml|safe}}
+        <div class="group_banned">
+        {%if r.author_id == g.user.id%}
+            <span class="c9 fr">&gt;
+                <a rel="nofollow" href="/group/topic-reply/{{r.id}}/delete" class="c9" title="真的要删除{{r.author.name}}的发言?">删除</a>
+            </span>
+        {%endif%}
+        </div>
+    </div>
+</li>
+{% endfor %}
+
+
+<li>
+{%if reply_form %}
+<h2>你的回应 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</h2>
+<form method="POST" action="{{ url_for('group.topic_reply',topic_id=topic.id) }}" class="prebody">
+{{ reply_form.hidden_tag() }}
+{{ render_errors(reply_form.content) }}
+{{ reply_form.content(class="reply_from_content") }}
+<div class="btnw">{{ reply_form.submit(class="button")}}</div>
+</form>
+{%else%}
+<h2>加入小组后才能回复信息 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</h2>
+{%endif%}
+</li>
+
+
+</ul>
+</div>
+<div class="group-r-body">
+
+<p class="pl2"><a href="{{ url_for('group.group_view',slug=groupinfo.url_name) }}">回到{{groupinfo.name}}小组</a></p>
+
+</div>
+<script type="text/javascript">
+$(window).load(function(){
+     prettyPrint();
+})
+
+
+</script>
+
+{% endblock %}

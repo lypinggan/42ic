@@ -1,0 +1,83 @@
+/*
+
+小组部分样式
+
+*/
+
+
+
+
+/*左侧主体*/
+.group-l-body{
+float: left;
+width: 615px;
+padding: 30px 30px 10px 0;
+}
+/*右侧主体*/
+.group-r-body{
+float: right;
+width: 250px;
+padding: 30px 0px 10px 0;
+}
+.infobox {
+width: 100%;
+table-layout: fixed;
+margin-bottom: 20px;
+}
+
+.infobox .bd {
+word-wrap: break-word;
+padding: 4px 9px;
+background: #f5f5f5;
+border: 1px solid #e5e5e5;
+}
+.infobox .bd::after {
+display: block;
+clear: both;
+}
+
+.pil {
+height: 48px;
+width: 48px;
+}
+fieldset, img {
+border: 0;
+}
+.olt {
+width: 100%;
+padding: 0;
+margin-bottom: 3px;
+}
+table {
+border-collapse: collapse;
+}
+.olt td {
+border-bottom: 1px dashed #DDD;
+padding: 3px 3px 3px 0;
+}
+
+
+.obss {
+width: 100%;
+}
+.ob {
+margin: 0 0 10px 0;
+float: left;
+width: 76px;
+text-align: center;
+}
+.ob dd {
+margin: 0;
+height: 55px;
+text-align: center;
+overflow: hidden;
+}
+dd {
+display: block;
+-webkit-margin-start: 40px;
+}
+.ob span {
+white-space: nowrap;
+}
+
+

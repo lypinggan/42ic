@@ -1,0 +1,58 @@
+{% extends "people/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}{% endblock %}
+{% block rmain %}
+<div class="indent">
+    <table class="ppi">
+    <tbody>
+    <tr>
+    <td class="tr">姓名</td>
+    <td class="c0">{{peopleinfo.name}}</td>
+    </tr>
+ 
+    <tr>
+    <td class="tr"></td>
+    <td >{{peopleinfo.username}}({{peopleinfo.tagline}})</td>
+    </tr>
+    
+    <tr>
+    <td class="tr">威望</td>
+    <td  class="c0">{{peopleinfo.prestige}}</td>
+    </tr>
+    <tr>
+    <td class="tr">积分</td>
+    <td  class="c0">{{peopleinfo.integral}}</td>
+    </tr>
+
+    <tr>
+    <td class="tr">现居城市</td>
+    <td  class="c0">{{peopleinfo.city}}</td>
+    </tr>
+
+    <tr>
+    <td class="tr">现居城市</td>
+    <td  class="c0">{{peopleinfo.city}}</td>
+    </tr>
+
+    <tr>
+    <td class="tr">详细地址</td>
+    <td  class="c0">{{peopleinfo.address}}</td>
+    </tr>
+
+    <tr>
+    <td class="tr">自我介绍</td>
+    <td  class="c0">{{peopleinfo.description}}</td>
+    </tr>
+
+    <tr>
+    <td class="tr">加入时间</td>
+    <td  class="c0">{{peopleinfo.date_joined}}</td>
+    </tr>
+
+
+    </tbody>
+    </table>
+    </div>
+
+
+{% endblock %}

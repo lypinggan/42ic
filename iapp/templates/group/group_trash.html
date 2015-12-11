@@ -1,0 +1,53 @@
+{% extends "group/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+{% block title %}我的小组{% endblock %}
+{% block main %}
+<div class="group-l-body">
+<h1>{{groupinfo.name}}的回收站</h1>
+
+
+<div class="indent">
+    
+    <table class="olt">
+    <tbody><tr><td>话题</td><td>作者</td><td nowrap="nowrap">回应</td><td align="right">最后回应</td>
+    <td align="right">操作</td>
+    </tr>
+    {% for t in topic_list.items %}
+        <tr><td><span class="pl">
+        {%if t.set_top%}
+        <img alt="[置顶]" src="http://img3.douban.com/pics/stick.gif"></span>&nbsp;
+        {%endif%}
+        <a href="{{ url_for('group.topic_view',topic_id=t.id) }}" title="{{t.title}}">{{t.title}}</a></td>
+        <td nowrap="nowrap"><a href="{{ url_for('people.index',username=t.author.username) }}">{{t.author.name}}</a></td>
+        <td nowrap="nowrap">{{t.num_comment}}</td>
+        <td nowrap="nowrap" class="time">{{t.date_last_response}}</td>
+        <td nowrap="nowrap" class="time"><a href="?action=restore&id={{t.id}}">恢复</a></td>
+        </tr>
+    
+    {% endfor %}            
+        </tbody></table>
+    </div>
+
+{{ paginate(topic_list, page_url) }}
+
+
+
+
+
+
+</div>
+<div class="group-r-body">
+<p>&nbsp; </p>
+<h2>
+        回收站
+         &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+    </h2>
+<p class="pl">回收站用于处理内容有问题的小组话题，只有小组管理员和话题发布者可见。小组管理员可将回收站中的话题恢复成正常状态。</p>
+<p class="pl">被本站判断出的问题内容（比如垃圾广告）会自动放入回收站。</p>
+
+
+
+
+</div>
+
+{% endblock %}

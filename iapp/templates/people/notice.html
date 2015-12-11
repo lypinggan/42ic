@@ -1,0 +1,31 @@
+{% extends "people/base.html" %}
+{% from "macros/_paginate.html" import paginate %}
+
+
+{% block title %}{% endblock %}
+
+
+{% block rmain %}
+
+<div class="indent">
+    
+    <table class="pnl">
+    <tbody><tr>
+    <td class="topic">标题</td>
+    <td >时间</td>
+    <td align="right"class=""></td>
+    </tr>
+    {% for m in mymsg.items %}
+        <tr {%if m.unread == 1 %}class="unread"{%endif%}onclick="window.location.href='{{ url_for('people.notice_read',username=peopleinfo.username,notice_id=m.id)}}'">
+        <td><span class="pl">{{m.title}}</td>
+        <td >{{m.date_created}}</td>
+        <td class="tr">{%if m.unread == 1 %}未读{%else%}已读{%endif%}</td>
+        </tr>
+    {% endfor %}            
+        </tbody></table>
+    </div>
+<p class="c9">最近100条记录</p>
+</div>
+{{ paginate(mymsg, page_url) }}
+{% endblock %}
+
